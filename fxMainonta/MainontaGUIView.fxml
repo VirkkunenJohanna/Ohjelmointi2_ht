@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import fi.jyu.mit.fxgui.ComboBoxChooser?>
+<?import fi.jyu.mit.fxgui.ListChooser?>
+<?import fi.jyu.mit.fxgui.StringGrid?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxMainonta.MainontaGUIController">
+   <top>
+      <MenuBar style="-fx-background-color: #c4c6e6;" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Tiedosto">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleTulosta" text="Tulosta" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleLopeta" text="Lopeta" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Muokkaa">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleUusiHenkilo" text="Lisää henkilö" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMuokkaaHenkilo" text="Muokkaa henkilöä..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleUusiMielenkiinto" text="Lisää mielenkiinnonkohde" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMuokkaaMielenkiinto" text="Muokkaa mielenkiinnonkohdetta..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePoistaHenkilo" text="Poista henkilö..." />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Apua">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleApua" text="Apua" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.28135788262370537, 0.6904487917146145" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane maxWidth="160.0" minWidth="100.0" prefWidth="138.0">
+               <center>
+                  <ListChooser fx:id="chooserHenkilot" maxWidth="200.0" prefHeight="200.0" prefWidth="170.0" rivit="Anttila Armi&#10;Anttila Assi&#10;Anunen Iina" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <VBox BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Hakuehto" />
+                        <ComboBoxChooser fx:id="cbKentat" onAction="#handleHakuehto" rivit="nimi&#10;hetu&#10;status&#10;puhelin&#10;e-mail&#10;" />
+                        <TextField fx:id="hakuehto" onKeyReleased="#handleHakuehto" />
+                        <Label alignment="CENTER" maxWidth="300.0" text="Henkilöt" />
+                     </children>
+                  </VBox>
+               </top>
+            </BorderPane>
+            <BorderPane>
+               <top>
+                  <Label text="Henkilön tiedot" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <ScrollPane fx:id="panelHenkilo" fitToWidth="true" pannable="true" BorderPane.alignment="CENTER">
+                    <content>
+                              <GridPane fx:id="gridHenkilo" hgap="10.0">
+                                <columnConstraints>
+                                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="12.0" />
+                                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="nimi" />
+                                    <TextField fx:id="editNimi" editable="false" text="Anttila Armi" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                                    <Label text="hetu" GridPane.rowIndex="1" />
+                                    <Label text="status" GridPane.rowIndex="2" />
+                                    <Label text="puhelin" GridPane.rowIndex="3" />
+                                    <Label text="e-mail" GridPane.rowIndex="4" />
+                                    <TextField editable="false" text="010198-2801" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <TextField editable="false" text="opiskelija" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                                    <TextField editable="false" text="0401234567" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                                    <TextField editable="false" text="armianttila@student.jyu.fi" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </GridPane>
+                    </content>
+                  </ScrollPane>
+               </center>
+               <bottom>
+                  <Label fx:id="labelVirhe" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Label text="Mielenkiinnonkohteet" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <StringGrid fx:id="tableMielenkiinnot" editable="true" rivit="asia|vahvuus&#10;tekniikka|5&#10;terveys|4&#10;ihmissuhteet|3" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <BorderPane style="-fx-background-color: #c4c6e6;" BorderPane.alignment="CENTER">
+         <left>
+            <HBox spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button onAction="#handleUusiHenkilo" text="_Uusi henkilö">
+                     <tooltip>
+                        <Tooltip text="Uuden henkilön lisääminen" />
+                     </tooltip>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleTallenna" text="Tallenna" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0"/>
+               </BorderPane.margin>
+            </HBox>
+         </left>
+         <right>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="true" onAction="#handleUusiMielenkiinto" text="Lisää kohde" />
+                  <Button mnemonicParsing="false" onAction="#handlePoistaMielenkiinto" text="Poista kohde" />
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>
